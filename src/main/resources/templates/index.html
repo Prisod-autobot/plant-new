@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmln:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1" />
+<title>Home</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"/>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+<style>
+*{
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+}
+html{
+	scroll-behavior: smooth;
+}
+.img-hover-zoom{
+	overflow: hidden;
+}
+.img-hover-zoom img {
+  transform-origin: 0 0;
+  transition: transform .25s, visibility .25s ease-in;
+}
+
+/* The Transformation */
+.img-hover-zoom:hover img {
+  transform: scale(2);
+}
+
+.card.mb-3:hover{
+	box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.abcd::before{
+	content:'Type:   ';
+	font-size:13px;
+	margin:0;
+	font-weight: bold;
+}
+
+.xyz::before{
+	content:'About:   ';
+	font-size:13px;
+	margin:0;
+	font-weight: bold;
+}
+
+.card{
+	opacity:0.8;
+}
+</style>
+</head>
+
+<body style="background-image: linear-gradient(to right, #a4ff8d, #ffe576, #ffcc9e, #ffc5d7, #ffcffd);background-repeat: no-repeat;">
+	<div class="container-fluid align-items-center justify-content-center bg-light" style="height:10rem;max-width:100%;" id="particles">
+		<h1 class="text-center font-monospace" style="margin: 0;position: relative;top: 0;left: 50%;transform: translate(-50%, -200%);">What are Plants?</h1>
+	</div>
+	<div th:replace="fragments/nav :: navbar"></div>
+	<div class="container mt-5">
+		<div class="container justify-content-center align-item-center">
+			<div class="row">
+				<th:block th:each="plantList:${plantList}">				
+					<div class="col-4" >
+						<div class="card mb-3" data-aos="zoom-in" style="max-width: 540px;box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;">
+						  <div class="row g-0">
+						    <div class="col-md-4 img-hover-zoom">
+						      <img th:src="@{${'/img/'+{plantList.pict.linkpict}}}" style="width:100%;height:190px;" class="img-fluid" alt="">
+						    </div>
+						    <div class="col-md-8">
+						      <div class="card-body">
+						        <h5 class="card-title text-center" style="line-height: normal;" th:text="${plantList.name}"></h5>
+						        <a class="font-monospace position-absolute" style="right:1.5rem;bottom:0.5rem;font-size:12px;" th:href="@{/readmore/{id}(id=${plantList.id})}">[detail]</a>
+						        <div class="row align-items-center" style="display: inline-block;">
+								       <p class="card-text abcd" style="margin-left:5px;" th:text="${plantList.typeplant.name}"></p>
+							     </div>
+							     <div class="row align-items-center">
+								        <p class="card-text xyz" style="margin-left:5px;overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3;-webkit-box-orient: vertical;" th:text="${plantList.detail}"> </p>
+							     </div>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+					</div>	
+				</th:block>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="/js/jquery.particleground.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script>
+  AOS.init();
+  
+  $(document).ready(function() {
+	  $('#particles').particleground({
+		    dotColor: '#5cbdaa',
+		    lineColor: '#5cbdaa'
+	  });
+	 });
+</script>
+
+</html>
